@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 # smaller model chosen earlier
-model = SentenceTransformer("all-MiniLM-L6-v2")
+model = SentenceTransformer("sentence-transformers/paraphrase-MiniLM-L3-v2")
 
 @app.route("/", methods=["GET"])
 def health():
