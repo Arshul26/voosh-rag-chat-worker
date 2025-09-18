@@ -1,8 +1,15 @@
 from flask import Flask, request, jsonify
 from sentence_transformers import SentenceTransformer
+import os
 
 app = Flask(__name__)
+
+# smaller model chosen earlier
 model = SentenceTransformer("all-MiniLM-L6-v2")
+
+@app.route("/", methods=["GET"])
+def health():
+    return jsonify({"status": "ok"}), 200
 
 @app.route("/embed", methods=["POST"])
 def embed():
@@ -15,4 +22,5 @@ def embed():
     return jsonify({"embedding": vec})
 
 if __name__ == "__main__":
-    app.run(port=5001, host="0.0.0.0")
+    port = int(os.environ.get("PORT", 5001))
+    app.run(port=port, host="0.0.0.0")
